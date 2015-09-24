@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Lunar Lander</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+
+		<style type="text/css">
+
+
+		@font-face {
+		    font-family: 'BenderLight';
+		    src: url('fonts/bender_light-webfont.eot');
+		    src: url('fonts/bender_light-webfont.eot') format('embedded-opentype'),
+		         url('fonts/bender_light-webfont.woff') format('woff'),
+		         url('fonts/bender_light-webfont.ttf') format('truetype'),
+		         url('fonts/bender_light-webfont.svg') format('svg');
+		    font-weight: normal;
+		    font-style: normal;
+
+		}
+
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+
+			}
+			.infoBox, .titleBox, .linkBox, .seblyBox {
+				font-family: 'BenderLight';
+				font-size:13pt;
+				letter-spacing : 0.2em;
+				line-height:1.7em;
+				color:white;
+				text-transform:uppercase;
+
+			}
+			.titleBox{
+				font-size:16pt;
+				line-height:1.4em;
+			}
+
+			.linkBox {
+				font-size:10pt;
+				position:absolute;
+				left : 1em;
+				bottom : 0.5em;
+				display:block;
+				color:#eee;
+			}
+			.linkBox a {
+					color:#fff;
+					text-decoration:none;
+			}
+
+			.seblyBox {
+				font-size:10pt;
+				position:absolute;
+				right : 1em;
+				bottom : 0.5em;
+				display:block;
+				color:#bbb;
+			}
+			.seblyBox a {
+					color:#fff;
+					text-decoration:none;
+			}
+
+			/*Touch stuff - TODO: look into non webkit prefixes */
+			* {
+			  -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+			  -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+			/* make transparent link selection, adjust last value opacity 0 to 1.0 */
+			  -webkit-tap-highlight-color: rgba(0,0,0,0);
+			  -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+			  -webkit-tap-highlight-color: rgba(0,0,0,0);
+			}
+
+
+@media only screen and (max-width: 650px) {
+	.infoBox{
+
+		font-size:6pt;
+
+	}
+	.seblyBox, .linkBox {
+		font-size:6pt;
+
+	}
+
+}
+
+		</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/util/util.js"></script>
+	<script src="app.js"></script>
+
+	</head>
+	<body>
+		<script src="libs/Vector2.js"></script>
+		<script src="libs/Stats.js"></script>
+		<!-- <script src="libs/KeyTracker.js"></script> -->
+		<script src="LandscapeData.js"></script>
+		<script src="InfoDisplay.js"></script>
+		<script src="Lander.js"></script>
+		<!-- requestAnimationFrame shim -->
+		<script src="libs/rAF.js"> </script>
+		<!-- jsfxr audio sound generator -->
+		<script src="libs/audio.js"></script>
+		<script src="libs/jsfx.js"></script>
+		<script src="libs/jsfxlib.js"></script>
+		<script src="Sounds.js"></script>
+		<script src="Sockets.js"></script>
+		<!-- <script src="TouchController.js"></script> -->
+		<script src="game.js"></script>
+
+	<input id="ArduinoIpAddress" value="192.168.1.121" type="url" />
+	<br/>
+	<button class="green" onclick="app.connect()">CONNECT</button>
+	<button class="charcoal" onclick="app.disconnect()">DISCONNECT</button>
+
+	<br />
+
+	<p>Status: <span id="ArduinoStatus">Not connected</span></p>
+
+	<div id="ArduinoAnalogValue" style="background:rgb(0,255,0);height:20px;width:0%"></div>
+
+	<p>Digital: <span id="DigitalStatus">Not connected</span></p>
+
+
+		<div class="linkBox">
+		Part of the <a href="http://seb.ly/lunar-trails">Lunar Trails</a> art project
+		</div>
+		<div class="seblyBox">
+		<a href="http://twitter.com/seb_ly">SEB.LY</a>
+		</div>
+	</body>
+
+</html>
