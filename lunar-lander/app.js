@@ -15,22 +15,23 @@ app.onDeviceReady =  function() {
 
 app.connect = function()
 {
-	//$('#ArduinoStatus').html('Connecting...')
+	document.getElementById('ArduinoStatus').innerHTML = 'Connecting...'
 	console.log("create")
 	chrome.sockets.tcp.create({}, function(createInfo)
 	{
-		console.log("connect")
+		var address = document.getElementById('ArduinoIpAddress').getAttribute('value')
+		console.log("connect "+address)
 		app.socketId = createInfo.socketId
 		chrome.sockets.tcp.connect(
 			app.socketId,
-			"192.168.1.121",
+			address,
 			3300,
 			function(result)
 			{
 				console.log("result: "+result)
 				var success = (0 === result)
 				if(success) {
-					//$('#ArduinoStatus').html('Connected to the Arduino')
+					document.getElementById('ArduinoStatus').innerHTML = 'Connected to the Arduino'
 					console.log("Connected to the Arduino")
 					chrome.sockets.tcp.send(app.socketId, new Uint8Array([64]).buffer, function(sendInfo)
 					{
@@ -48,7 +49,7 @@ app.connect = function()
 
 app.disconnect = function()
 {
-	//$('#ArduinoStatus').html('Disconnecting...')
+	document.getElementById('ArduinoStatus').innerHTML = 'Disconnecting...'
 	//console.log("setPaused...")
 	//chrome.sockets.tcp.send(app.socketId, new Uint8Array([65]).buffer, function(sendInfo)
 	//chrome.sockets.tcp.setPaused(app.socketId, true, function()
@@ -61,7 +62,7 @@ app.disconnect = function()
 		chrome.sockets.tcp.close(app.socketId, function()
 		{
 			console.log("closed.")
-			//$('#ArduinoStatus').html('Disconnected')
+			document.getElementById('ArduinoStatus').innerHTML = 'Disconnected'
 		})
 		/*chrome.sockets.tcp.send(app.socketId, new Uint8Array([65]).buffer, function(sendInfo)
 		{
@@ -72,7 +73,7 @@ app.disconnect = function()
 
 app.onReceiveError = function(info)
 {
-	//$('#ArduinoStatus').html('Read error: '+info.resultCode)
+	document.getElementById('ArduinoStatus').innerHTML = 'Read error: '+info.resultCode
 }
 
 app.inputLine = ''
@@ -111,7 +112,7 @@ app.handleInputLine = function(inputLine)
 		var value = inputLine.slice(1)
 
 		// Display value in input field.
-		//$('#ArduinoStatus').html('Analog value of pin is: ' + value)
+		document.getElementById('ArduinoStatus').innerHTML = 'Analog value is: ' + value
 
 		// Convert analog value to percent value between 1 and 100.
 		/*var width = parseInt(value) / 10
