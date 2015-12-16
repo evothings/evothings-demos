@@ -1,0 +1,92 @@
+// This #include statement was automatically added by the Particle IDE.
+#include "SparkFunLSM9DS1/SparkFunLSM9DS1.h"
+
+// Configure SparkFun Photon IMU Shield
+#define LSM9DS1_M 0x1E
+#define LSM9DS1_AG  0x6B
+
+// Configure example
+#define DELAY_BETWEEN_TRANSFERS 50 // In milliseconds
+#define SERVER_PORT 23
+#define RGB_BRIGHTNESS 128
+#define RGB_R 0
+#define RGB_G 255
+#define RGB_B 0
+
+TCPServer server = TCPServer(SERVER_PORT);
+TCPClient client;
+LSM9DS1 imu;
+
+void setup()
+{
+
+	// Enable serial communication
+	Serial.begin(9600);
+
+	// Start listening for clients
+	server.begin();
+
+	// Initialize SparkFun Photon IMU Shield
+	imu.settings.device.commInterface = IMU_MODE_I2C;
+	imu.settings.device.mAddress = LSM9DS1_M;
+	imu.settings.device.agAddress = LSM9DS1_AG;
+	imu.begin();
+
+}
+
+void loop()
+{
+
+	if (client.connected()) {
+
+		// Discard data not read by client
+		client.flush();
+
+		// Take control of the led
+		RGB.control(true);
+		RGB.color(RGB_R, RGB_G, RGB_B);
+
+		// Read IMU data
+		imu.readAccel();
+
+		// Create JSON-object
+		char buffer [40];
+		size_t length = sprintf(buffer,
+						"{\"ax\": %.3f, \"ay\": %.3f, \"az\": %.3f}\n",
+						imu.calcAccel(imu.ax),
+						imu.calcAccel(imu.ay),
+						imu.calcAccel(imu.az)
+						);
+
+		// Flash LED
+		RGB.brightness(RGB.brightness() == RGB_BRIGHTNESS ? 0 : RGB_BRIGHTNESS);
+
+		// Transfer JSON-object
+		server.write((uint8_t *)buffer, length);
+
+	} else {
+
+		// Turn on LED and release control of LED
+		RGB.brightness(RGB_BRIGHTNESS);
+		RGB.control(false);
+
+		// Check if client connected
+		client = server.available();
+	}
+
+	// Send network information if serial data is received
+	if(Serial.available()) {
+
+		Serial.println(WiFi.localIP());
+		Serial.println(WiFi.subnetMask());
+		Serial.println(WiFi.gatewayIP());
+		Serial.println(WiFi.SSID());
+
+		while(Serial.available()) {
+			Serial.read();
+		}
+
+	}
+
+	delay(DELAY_BETWEEN_TRANSFERS);
+}
