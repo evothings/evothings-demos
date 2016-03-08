@@ -9,7 +9,7 @@ var ledCharacteristicUUID = '0000a001-0000-1000-8000-00805f9b34fb'
 var buttonServiceUUID = '0000a002-0000-1000-8000-00805f9b34fb'
 var buttonCharacteristicUUID = '0000a003-0000-1000-8000-00805f9b34fb'
 
-// Variables.
+// Variables
 var gattServer
 var ledService
 var buttonService
@@ -17,11 +17,11 @@ var vibrationTimer
 var pollTimer
 
 function showInfo(info) {
-	document.getElementById('info').innerHTML = info	
+  document.getElementById('info').innerHTML = info	
 }
 
 function log(message) {
-	console.log(message)
+  console.log(message)
 }
 
 function init() {
@@ -31,8 +31,8 @@ function init() {
 document.addEventListener('deviceready', init, false)
 
 app.start = () => {
-	showInfo('Started polling')
-	app.poll()
+  showInfo('Started polling')
+  app.poll()
 }
 
 app.nextPoll = () => {
@@ -41,14 +41,14 @@ app.nextPoll = () => {
 
 app.startVibration = () => {
   if (!vibrationTimer) {
-	  vibrationTimer = setInterval(() => { app.vibrate() }, 300)
-	}
+    vibrationTimer = setInterval(() => { app.vibrate() }, 300)
+  }
 }
 
 app.stopVibration = () => {
   if (vibrationTimer) {
-  	clearInterval(vibrationTimer)
-  	vibrationTimer = null
+    clearInterval(vibrationTimer)
+    vibrationTimer = null
   }
 }
 
@@ -59,37 +59,37 @@ app.vibrate = () => {
 app.poll = () => {
   showInfo('Request device...')
   bleat.requestDevice({
-	  filters:[{ name: 'VIBER' }]
+    filters: [{ name: 'VIBER' }]
   })
   .then(device => {
     app.device = device
-	  log('Found device: ' + device.name)
-	  showInfo('Found ' + device.name)
-	  return device.gatt.connect();
+    log('Found device: ' + device.name)
+    showInfo('Found ' + device.name)
+    return device.gatt.connect();
   })
   .then(server => {
-	  gattServer = server
-	  log('nRF51DK connected:  ' + gattServer.connected)
-	  showInfo('Connected to VIBER')
-	  return gattServer.getPrimaryService(buttonServiceUUID)
+    gattServer = server
+    log('nRF51DK connected:  ' + gattServer.connected)
+    showInfo('Connected to VIBER')
+    return gattServer.getPrimaryService(buttonServiceUUID)
   })
   .then(service => {
-	  // Get button characteristic.
-	  log('Got button service')
-	  showInfo('Got button service')
-	  buttonService = service
-	  return buttonService.getCharacteristic(buttonCharacteristicUUID)
+    // Get button characteristic.
+    log('Got button service')
+    showInfo('Got button service')
+    buttonService = service
+    return buttonService.getCharacteristic(buttonCharacteristicUUID)
   })
   .then(characteristic => {
-	  // Read button value and then disconnect.
-	  return characteristic.readValue()
+    // Read button value and then disconnect.
+    return characteristic.readValue()
   })
   .then(data => {
     var shouldVibrate = data.getInt8(0, true) == 1
     app.disconnect()
     log('Button pressed: ' + shouldVibrate)
     if (shouldVibrate) {
-	    app.startVibration()
+      app.startVibration()
     } else {
       app.stopVibration()
     }
@@ -97,7 +97,7 @@ app.poll = () => {
     app.nextPoll()
   })
   .catch(error => {
-	  log(error)
+    log(error)
     app.disconnect()
     showInfo('Disconnected on error')
     app.nextPoll()
@@ -120,7 +120,7 @@ app.stop = () => {
   }
   app.disconnect()
   app.stopVibration()
-	showInfo('Stopped polling')
+  showInfo('Stopped polling')
 }
 
 })();
