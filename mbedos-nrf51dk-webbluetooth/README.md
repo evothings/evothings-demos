@@ -8,14 +8,17 @@ There is an article written around this sample which explains how it works and h
 
 http://evothings.com/...
 
-But... if you are impatient,
+But... if you are impatient, already have the yotta tools installed and already have an nRF51-DK
+prepped for mbed OS and mounted as `MBED`, all of which is <strong>explained in the article</strong>,
+then you can:
 
-Build the mbed OS server code by running `yt build`. Flash it by connecting the board (needs to
-have been mbed *prepared* first which is described in the article) so that it mounts as MBED and
-then running `./flash.sh`. Press the reset button on the board to start the application which will
-blink one of the LEDs as an alive indicator.
+1. Build the mbed OS server code by running `yt build`.
 
-Load the Evothings application by dragging the evothings.json file onto the Evothings Workbench
-`MyApps` tab. Then press RUN to run it on a connected phone/tablet.
+2. Flash it by connecting the mbed prepped board so that it mounts as MBED and then running
+`./flash.sh`. After the board stops flickering in a few seconds, press the reset button on the
+board to start the application which will blink one of the LEDs as an alive indicator.
+
+3. Load the Evothings application by dragging the `evothings/evothings.json` file onto the Evothings
+Workbench `MyApps` tab. Then press RUN to run it on your connected iOS/Android phone/tablet.
 
 See article above for more details.
