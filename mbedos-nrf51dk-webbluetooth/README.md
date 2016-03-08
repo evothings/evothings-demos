@@ -1,3 +1,5 @@
+# mbed OS + nRF51-DK + Evothings + Web Bluetooth
+
 This is a sample combining:
 
 - The new ARM mbed OS
@@ -19,6 +21,8 @@ then you can:
 board to start the application which will blink one of the LEDs as an alive indicator.
 
 3. Load the Evothings application by dragging the `evothings/evothings.json` file onto the Evothings
-Workbench `MyApps` tab. Then press RUN to run it on your connected iOS/Android phone/tablet.
+Workbench `MyApps` tab. <strong>You need the 2.1 version or newer of Evothings Workbench!</strong>.
+
+4. Then press RUN to run the app on your connected iOS/Android phone/tablet.
 
 See article above for more details.
