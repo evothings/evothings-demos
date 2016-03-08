@@ -1,0 +1,13 @@
+{
+  "name": "viber",
+  "version": "0.0.1",
+  "bin": "./source",
+  "private": true,
+  "description": "Demo app of Web Bluetooth",
+  "author": "Goran Krampe",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "mbed-drivers": "~0.12.1",
+    "ble": "^2.5.0"
+  }
+}
