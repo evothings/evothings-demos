@@ -10,9 +10,8 @@ var buttonServiceUUID = '0000a002-0000-1000-8000-00805f9b34fb'
 var buttonCharacteristicUUID = '0000a003-0000-1000-8000-00805f9b34fb'
 
 // Variables
+var viberDevice
 var gattServer
-var ledService
-var buttonService
 var vibrationTimer
 var pollTimer
 
@@ -58,14 +57,14 @@ app.vibrate = () => {
 
 app.poll = () => {
   showInfo('Request device...')
-  bleat.requestDevice({
-    filters: [{ name: 'VIBER' }]
+  bleat.requestDevice(
+    {filters: [{ name: 'VIBER' }]
   })
   .then(device => {
-    app.device = device
-    log('Found device: ' + device.name)
-    showInfo('Found ' + device.name)
-    return device.gatt.connect();
+    viberDevice = device
+    log('Found device: ' + viberDevice.name)
+    showInfo('Found ' + viberDevice.name)
+    return viberDevice.gatt.connect()
   })
   .then(server => {
     gattServer = server
@@ -74,14 +73,11 @@ app.poll = () => {
     return gattServer.getPrimaryService(buttonServiceUUID)
   })
   .then(service => {
-    // Get button characteristic.
     log('Got button service')
     showInfo('Got button service')
-    buttonService = service
-    return buttonService.getCharacteristic(buttonCharacteristicUUID)
+    return service.getCharacteristic(buttonCharacteristicUUID)
   })
   .then(characteristic => {
-    // Read button value and then disconnect.
     return characteristic.readValue()
   })
   .then(data => {
@@ -111,7 +107,7 @@ app.disconnect = () => {
       log("Disconnected")
     }
   }
-}    
+}
 
 app.stop = () => {
   if (pollTimer) {

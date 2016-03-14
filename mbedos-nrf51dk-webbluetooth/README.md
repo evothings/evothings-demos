@@ -8,7 +8,7 @@ This is a sample combining:
 
 There is an article written around this sample which explains how it works and how to run it:
 
-http://evothings.com/...
+https://evothings.com/web-bluetooth-meets-arm-mbed-os/
 
 But... if you are impatient, already have the yotta tools installed and already have an nRF51-DK
 prepped for mbed OS and mounted as `MBED`, all of which is <strong>explained in the article</strong>,
