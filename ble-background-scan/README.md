@@ -1,6 +1,6 @@
 # BLE Background Scanning Demo
 
-This is a demo app of BLE background scanning. The code is written in JavaScript and uses an custom version of the Bleat library. This library is included with the app.
+This is a demo app of BLE background scanning. The code is written in JavaScript and uses an [custom version of the BLE Bleat library](https://github.com/mikaelkindborg/bleat/tree/scan-update). This library is included with the app.
 
 This app works on iOS and Android with Evothings Viewer 1.4 or later (Viewer 1.4 will be available in the App Stores in May 2016).
 
