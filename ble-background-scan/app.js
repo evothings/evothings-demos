@@ -67,8 +67,8 @@ function startScan(callbackFun)
         function() {},
         // Error callback.
         function(errorCode) { callbackFun(null, errorCode) },
-        // Scan options.
-        { allowDuplicates: true }
+        // Allow duplicates.
+        true
     );
 };
 
@@ -100,6 +100,8 @@ app.onStopScanButton = function()
 // Called when a device is found.
 function deviceFound(device, errorCode)
 {
+    //console.log(JSON.stringify(device))
+
     // Sometimes an RSSI of +127 is reported.
     // We filter out these values here.
     if (device.adData.rssi > 0)
