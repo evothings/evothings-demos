@@ -1,0 +1,15 @@
+Notes:
+
+No notification on data services. Use polling by reading characteristics with a timer.
+
+Data services, including battery level, give fake static data unless you toggle on "Sensor Tag" in the Hexiwear main menu.
+
+Heart Rate and Pedometer values will update only when you turn on their respective apps on the Hexiwear Apps menu. When you exit the apps, the values will cease to update.
+
+The Weather service's updates are not fully understood. We have not yet found a proper pattern for them.
+
+On iOS we get error on notification fot mode characteristic, it first succeeds, then produces the error: "The attribute could not be found."
+
+On Android we get readCharacteristic errors now and then. Reading seems to progress though.
+
+To detect the HexiWear during BLE scan, you may have to turn on/off Bluetooth on the HexiWear.
