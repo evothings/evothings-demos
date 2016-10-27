@@ -90,6 +90,9 @@ function disconnect() {
 }
 
 function scanForDevice() {
+  // Stop scanning.
+  evothings.ble.stopScan();
+
   showStatus("Scanning...");
 
   // Start scanning. Two callback functions are specified.
