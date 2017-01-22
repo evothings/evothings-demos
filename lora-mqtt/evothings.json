@@ -1,0 +1,29 @@
+{
+  "name": "lorademo",
+  "version": "1.0.0",
+  "title": "Lora Demo",
+  "description": "App that connects to TTN and LoRa devices.",
+  "tags": [
+    {
+      "type": "comm"
+    }
+  ],
+  "libraries": [
+    {
+      "name": "jquery",
+      "version": "2.1.1"
+    },
+    {
+      "name": "mdl",
+      "version": "1.2.1"
+    }
+  ],
+  "plugins": [
+  ],
+  "index-file": "index.html",
+  "uuid": "1db983e0-772c-439e-a983-a2925bee2c1b",
+  "icon": "app-icon.png",
+  "cordova-id": "com.evothings.examples.lorademo",
+  "doc-url": "http://evothings.com/doc/examples/lorademo.html",
+  "long-description": "App that connects to The Things Network (TTN) displays sensor data from LoRa devices."
+}

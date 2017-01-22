@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no,
+    shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+  <title>LoRa Demo</title>
+
+  <script>
+  // Redirect console.log to Evothings Workbench.
+  if (window.hyper && window.hyper.log) { console.log = hyper.log }
+  </script>
+
+  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="libs/mdl/material.css">
+  <link rel="stylesheet" href="libs/mdl/icons/material-icons.css">
+
+  <style>
+  #graph1, #graph2
+  {
+    width : 95%;
+    height: 200px;
+    margin: 8px auto;
+  }
+  </style>
+
+</head>
+
+<body>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+  <!-- Header -->
+  <header class="mdl-layout__header">
+
+    <button class="app-back mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">arrow_back</i>
+    </button>
+
+    <div class="mdl-layout__header-row">
+
+      <!-- Title -->
+      <span class="mdl-layout-title">LoRa Demo</span>
+      <div class="mdl-layout-spacer"></div>
+      <!-- Back button -->
+      <nav class="mdl-navigation">
+        <a class="app-back mdl-navigation__link" href="javascript:void(0)">Back</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Side menu -->
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Menu</span>
+    <nav class="mdl-navigation">
+      <a class="app-connect mdl-navigation__link" href="javascript:void(0)"><i class="material-icons">location_searching</i> Connect</a>
+      <a class="app-disconnect mdl-navigation__link" href="javascript:void(0)"><i class="material-icons">highlight_off</i> Disconnect</a>
+    </nav>
+  </div>
+
+  <!-- Main -->
+  <main class="mdl-layout__content">
+
+    <!-- page-start -->
+    <section>
+      <div class="page-content">
+
+        <!-- Raised button with ripple
+        https://material.google.com/style/color.html#color-color-palette
+        -->
+        <div class="app-buttons">
+          <button class="app-connect mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color-text--white mdl-button--disabled">
+              Connect
+          </button>
+          <button class="app-disconnect mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color-text--white mdl-button--disabled">
+            Disconnect
+          </button>
+        </div>
+
+        <!--<div class="app-info">Hello World</div>-->
+
+        <div id="graph1"></div>
+
+        <div id="graph2"></div>
+
+      </div>
+      <!-- End page-content -->
+    </section>
+
+
+  </main>
+
+  <!-- Toast element used for messages -->
+  <div class="mdl-snackbar mdl-js-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+  </div>
+
+</div>
+
+<script src="cordova.js"></script>
+<script src="libs/jquery/jquery-3.1.1.min.js"></script>
+<script src="libs/fastclick/fastclick.js"></script>
+<script src="libs/mdl/material.js"></script>
+<script src="libs/paho/mqttws31.js"></script>
+<script src="libs/flotr2/flotr2.js"></script>
+<script src="app.js"></script>
+</body>
+
+</html>
