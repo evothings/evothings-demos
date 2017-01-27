@@ -1,0 +1,11 @@
+{
+  "app-dir": "app",
+  "www-dir": "www",
+  "index-file": "index.html",
+  "dont-build": [
+    "libs",
+    "ui"
+  ],
+  "app-icon": "app-icon.png",
+  "app-uuid": "cb5959a9-6291-4a1f-9819-e2913c93acef"
+}

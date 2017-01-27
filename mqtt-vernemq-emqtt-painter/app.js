@@ -7,8 +7,8 @@ var app = {};
 
 // BEWARE: These need to be edited! If you are lucky my
 // MQTT server is up, but I promise nothing.
-var host = 'padme.krampe.se';
-var port = 8083;
+var host = 'vernemq.evothings.com';
+var port = 8084;
 var user = 'anon';
 var password = 'ymous';
 
