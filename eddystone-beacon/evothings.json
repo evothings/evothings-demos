@@ -1,0 +1,26 @@
+{
+  "name": "eddystone-beacon",
+  "version": "1.0",
+  "title": "Eddystone Beacon",
+  "description": "App that advertises as an Eddystone beacon",
+  "tags": [
+    {
+      "label": "eddystone",
+      "type": "platform"
+    },
+    {
+      "label": "ble",
+      "type": "comm"
+    }
+  ],
+  "libraries": [
+    {
+      "name": "jquery",
+      "version": "2.1.1"
+    }
+  ],
+  "index-file": "index.html",
+  "uuid": "6daa1f7a-070f-42f5-8179-d8a851c47072",
+  "icon": "app-icon.png",
+  "doc-url": "https://evothings.com/doc/examples/eddystone-beacon.html"
+}

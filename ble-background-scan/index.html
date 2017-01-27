@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no,
+		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>Bleat Finder</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/bleat/bluetooth.helpers.js"></script>
+  <script src="libs/bleat/api.classic.js"></script>
+  <script src="libs/bleat/adapter.evothings.js"></script>
+	<script src="app.js"></script>
+
+</head>
+
+<body>
+
+	<header>
+		<button class="back" onclick="history.back()">
+			<img src="ui/images/arrow-left.svg" />
+		</button>
+
+		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+	</header>
+
+	<h1>Bleat Finder</h1>
+	
+	<p>This example app uses the Bleat BLE library. The app scans for a BLE device with a given name and service UUID. Edit file app.js to set these values to match the BLE device you wish to scan for.</p>
+
+	<button onclick="app.onStartScanButton()" class="green">
+		START SCAN
+	</button>
+
+	<button onclick="app.onStopScanButton()" class="charcoal">
+		STOP SCAN
+	</button>
+
+	<p id="scan-status"></p>
+
+	<div id="found-device"></div>
+
+</body>
+
+</html>
