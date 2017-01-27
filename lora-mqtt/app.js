@@ -4,7 +4,7 @@
 {
 
 // Timer that updates the displayed list of devices.
-var mUpdateTimer = null
+//var mUpdateTimer = null
 
 function main()
 {
@@ -47,7 +47,7 @@ function onDeviceReady()
 function onConnect()
 {
   // Start update timer.
-  mUpdateTimer = setInterval(updateSensorData, 100)
+  //mUpdateTimer = setInterval(updateSensorData, 2000)
 
   disconnect()
   connect()
@@ -58,20 +58,28 @@ function onConnect()
 
 var mConnected = false
 var mClient = null
-var mPublishTopic = 'evothings.com/lorademo/sensordata'
-var mSubscribeTopic = 'evothings.com/lorademo/sensordata'
+var mPublishTopic = 'evothingstest1/sensordata' // For debugging
+var mSubscribeTopic = 'evothingstest1/#'
 
 function connect()
 {
   var clientID = generateUUID()
+  /*
   mClient = new Paho.MQTT.Client(
     'vernemq.evothings.com',
     8084,
+    clientID)
+  */
+  mClient = new Paho.MQTT.Client(
+    'm20.cloudmqtt.com',
+    34667,
     clientID)
   mClient.onConnectionLost = onConnectionLost
   mClient.onMessageArrived = onMessageArrived
   var options =
   {
+    userName: 'erdwahoc',
+    password: 'DjdQXUQ7kaV_',
     useSSL: true,
     onSuccess: onConnectSuccess,
     onFailure: onConnectFailure
@@ -79,11 +87,13 @@ function connect()
   mClient.connect(options)
 }
 
-
 function onMessageArrived(message)
 {
 	var payload = JSON.parse(message.payloadString)
 	console.log('got obj: ' + message.payloadString)
+  //console.log('got obj 2: ' + JSON.stringify(payload))
+  //console.log('got message: ' + JSON.stringify(message.payloadString))
+  updateSensorData(payload)
 }
 
 function onConnectSuccess(context)
@@ -91,12 +101,12 @@ function onConnectSuccess(context)
 	mConnected = true
 	subscribe()
 	showMessage('Connected')
-	publish({ message: 'Hello' })
+	// For debugging: publish({ message: 'Hello' })
 }
 
 function onConnectFailure(error)
 {
-  console.log('Failed to connect: ' + error)
+  console.log('Failed to connect: ' + JSON.stringify(error))
 	showMessage('Connect failed')
 }
 
@@ -116,8 +126,8 @@ function publish(jsonObj)
 
 function subscribe()
 {
-	mClient.subscribe(mSubscribeTopic);
-	console.log('Subscribed: ' + mSubscribeTopic);
+	mClient.subscribe(mSubscribeTopic)
+	console.log('Subscribed: ' + mSubscribeTopic)
 }
 
 function unsubscribe()
@@ -182,40 +192,34 @@ function drawGraph(container, data, title)
   Flotr.draw(container, [data], options)
 }
 
-var mCurrentTime = new Date('2017-01-21T23:01:26.573Z').getTime()
-var mSensorData1 = []
-var mCurrentDataPoint1 = 0
-var mSensorData2 = []
-var mCurrentDataPoint2 = 0
+var mCurrentTimeStamp = null
+var mSensorData = {}
 
-function updateSensorData()
+function updateSensorData(payload)
 {
-  updateSensorData1()
-  updateSensorData2()
+  mCurrentTimeStamp = new Date(payload.metadata.time).getTime()
+  updateSensor('message-counter', 'Messages', payload.counter)
+  updateSensor('rssi', 'RSSI', payload.metadata.gateways[0].rssi)
+  updateSensor('snr', 'SNR', payload.metadata.gateways[0].snr)
+  updateSensor('frequency', 'Frequency', payload.metadata.frequency)
 }
 
-function updateSensorData1()
+function updateSensor(sensorID, label, value)
 {
-  mCurrentDataPoint1 += (Math.random() * 2) - 1
-  mSensorData1.push([mCurrentTime, mCurrentDataPoint1])
-  if (mSensorData1.length > 100) mSensorData1.shift()
-  mCurrentTime += 100
-  drawGraph(
-    document.getElementById('graph1'),
-    mSensorData1,
-    'Sensor 1')
-}
+  // Ensure array exists for sensor.
+  if (!mSensorData[sensorID]) { mSensorData[sensorID] = [] }
+  
+  // Add data point.
+  mSensorData[sensorID].push([mCurrentTimeStamp, value])
 
-function updateSensorData2()
-{
-  mCurrentDataPoint2 += (Math.random() * 4) - 2
-  mSensorData2.push([mCurrentTime, mCurrentDataPoint2])
-  if (mSensorData2.length > 100) mSensorData2.shift()
-  mCurrentTime += 100
+  // Keep max 100 data points.
+  if (mSensorData[sensorID].length > 100) mSensorData[sensorID].shift()
+  
+  // Draw sensor data.
   drawGraph(
-    document.getElementById('graph2'),
-    mSensorData2,
-    'Sensor 2')
+    document.getElementById('graph-' + sensorID),
+    mSensorData[sensorID],
+    label)
 }
 
 // Thanks to http://stackoverflow.com/a/8809472/4940311
