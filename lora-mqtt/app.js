@@ -63,23 +63,17 @@ var mSubscribeTopic = 'evothingstest1/#'
 
 function connect()
 {
-  var clientID = generateUUID()
-  /*
+  var clientID = device.uuid
   mClient = new Paho.MQTT.Client(
     'vernemq.evothings.com',
     8084,
-    clientID)
-  */
-  mClient = new Paho.MQTT.Client(
-    'm20.cloudmqtt.com',
-    34667,
     clientID)
   mClient.onConnectionLost = onConnectionLost
   mClient.onMessageArrived = onMessageArrived
   var options =
   {
-    userName: 'erdwahoc',
-    password: 'DjdQXUQ7kaV_',
+    userName: 'anon',
+    password: 'ymous',
     useSSL: true,
     onSuccess: onConnectSuccess,
     onFailure: onConnectFailure
@@ -220,20 +214,6 @@ function updateSensor(sensorID, label, value)
     document.getElementById('graph-' + sensorID),
     mSensorData[sensorID],
     label)
-}
-
-// Thanks to http://stackoverflow.com/a/8809472/4940311
-function generateUUID()
-{
-	var d = new Date().getTime()
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
-		/[xy]/g,
-		function(c)
-		{
-			var r = (d + Math.random()*16) % 16 | 0
-			d = Math.floor(d/16)
-			return (c == 'x' ? r : (r&0x3|0x8)).toString(16)
-		})
 }
 
 // Call main function to initialise app.
