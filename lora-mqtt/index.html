@@ -6,6 +6,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no,
     shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="-1" />
 
   <title>LoRa Demo</title>
 
@@ -17,6 +20,7 @@
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="libs/mdl/material.css">
   <link rel="stylesheet" href="libs/mdl/icons/material-icons.css">
+  <link rel="stylesheet" href="libs/leaflet/leaflet.css">
 
   <style>
   .graph
@@ -24,6 +28,18 @@
     width : 95%;
     height: 200px;
     margin: 8px auto;
+  }
+
+  .app-map
+  {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
   }
   </style>
 
@@ -56,8 +72,12 @@
   <div class="mdl-layout__drawer">
     <span class="mdl-layout-title">Menu</span>
     <nav class="mdl-navigation">
+      <!--
       <a class="app-connect mdl-navigation__link" href="javascript:void(0)"><i class="material-icons">location_searching</i> Connect</a>
       <a class="app-disconnect mdl-navigation__link" href="javascript:void(0)"><i class="material-icons">highlight_off</i> Disconnect</a>
+      -->
+      <a class="app-show-sensors mdl-navigation__link" href="javascript:void(0)"><i class="material-icons">settings_input_antenna</i> Sensors</a>
+      <a class="app-show-map mdl-navigation__link" href="javascript:void(0)"><i class="material-icons">place</i> Map</a>
     </nav>
   </div>
 
@@ -65,7 +85,7 @@
   <main class="mdl-layout__content">
 
     <!-- page-start -->
-    <section>
+    <section class="app-page-sensors">
       <div class="page-content">
 
         <!-- Raised button with ripple
@@ -85,12 +105,22 @@
         <div id="graph-rssi" class="graph"></div>
         <div id="graph-snr" class="graph"></div>
         <div id="graph-frequency" class="graph"></div>
-        <div id="graph-message-counter" class="graph"></div>
+        <div id="graph-sensor-x" class="graph"></div>
 
       </div>
       <!-- End page-content -->
     </section>
 
+    <section class="app-page-map" style="display:none;">
+      <div class="page-content">
+
+        <h1>Map</h1>
+
+        <div class="app-map" id="my-map"></div>
+
+      </div>
+      <!-- End page-content -->
+    </section>
 
   </main>
 
@@ -108,7 +138,9 @@
 <script src="libs/mdl/material.js"></script>
 <script src="libs/paho/mqttws31.js"></script>
 <script src="libs/flotr2/flotr2.js"></script>
+<script src="libs/leaflet/leaflet.js"></script>
 <script src="app.js"></script>
+
 </body>
 
 </html>
