@@ -16,14 +16,20 @@
     {
       "name": "mdl",
       "version": "1.2.1"
+    },
+    {
+      "name": "mqttws",
+      "version": "3.1"
     }
   ],
-  "plugins": [
-  ],
+  "plugins": [],
   "index-file": "index.html",
   "uuid": "1db983e0-772c-439e-a983-a2925bee2c1b",
   "icon": "app-icon.png",
   "cordova-id": "com.evothings.examples.lorademo",
   "doc-url": "http://evothings.com/doc/examples/lorademo.html",
-  "long-description": "App that connects to The Things Network (TTN) displays sensor data from LoRa devices."
+  "long-description": "App that connects to The Things Network (TTN) displays sensor data from LoRa devices.",
+  "author-name": "Evothings",
+  "author-email": "build@evothings.com",
+  "author-url": "https://evothings.com"
 }

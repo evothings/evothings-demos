@@ -1,0 +1,8 @@
+{
+  "name": "mqttws",
+  "versions": ["3.1"],
+  "title": "Paho MQTTWS",
+  "description": "Paho MQTTWS is an MQTT client library that uses WebSockets to connect to an MQTT Broker.",
+  "icon" :"app-icon.png",
+  "doc-url" :"https://eclipse.org/paho/clients/js/"
+}
